@@ -11,3 +11,15 @@ public class AppsSpringApplication {
 	}
 
 }
+
+@GetMapping("hello-mvc")
+public String helloMvc(@RequestParam("name") String name, Model model) {
+	model.addAttribute(attributeName: "name", name);
+	return "hello-template";
+}
+
+@GetMapping("hello-string")
+@ResponseBody
+public String helloString(@RequestParam("name") String name) {
+	return "hello" + name;
+}
