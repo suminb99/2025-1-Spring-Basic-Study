@@ -1,0 +1,22 @@
+## 1주차 강의 정리
+
+## 정적 컨텐츠
+- 웹 개발의 3가지 방법: 정적 컨텐츠, mvc와 템플릿 엔진, api
+- 스프링부트는 기본적으로 \static에서 파일 자동으로 찾아서 정적 컨텐츠 제공해준다
+- http://localhost:8080/hello-static.html static 안에 hello-static.html 만들어서 url 들어가면 자동으로 뜸
+- hello-static 관련 컨트롤러x -> resources\static 에 hello-static이라는 파일 있는지 찾음
+- ViewResolver 사용 X
+
+## mvc와 템플릿 엔진
+- 이전: model, view 분리x view에서 모든 걸 다함
+- but 역할, 분야가 다르기 때문에 분리하는 것이 더 효율적임 -> mvc 패턴을 사용하는 이유
+  - controller: 비즈니스 로직과 관련
+  - view: 화면 그리는 것만 집중
+- 템플릿 엔진: html 내용 바꿀 수 o
+- viewResolver가 html 변환 후 웹 브라우저에 넘겨줌
+
+## api
+- View x, 데이터 그대로 클라이언트에게 전달 (객체 반환)
+- @ResponseBody : http body에 문자 내용을 직접 반환, HttpMessageConverter 가 동작
+(기본 문자처리: StringHttpMessageConverter/기본 객체처리: MappingJackson2HttpMessageConverter)
+- 객체 return: spring이 json으로 만들어서 http body에 반환 (JsonConverter 동작)
