@@ -1,10 +1,16 @@
-package hello.hello_spring.service;
+package hello.hello_spring.service;//
 
-import hello.hello_spring.domain.Member;
+import hello.hello_spring.domain.Member;//
+import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions.*;
+
+import java.util.Optional;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MemberServiceTest {
 
@@ -16,20 +22,24 @@ class MemberServiceTest {
         memberRepository = new MemoryMemberRepository();
         memberService = new MemberService(memberRepository);
     }
-    ;
+
+    @AfterEach
+    public void afterEach() {
+        memberRepository.clearStore();
+    }
 
     @Test
     void 회원가입() {
         //given
-        Member.member= new Member();
+        Member member= new Member();
         member.setName("hello");
 
         //when
-        Long SaveId = memberService.join(member);
+        Long saveId = memberService.join(member);
 
         // then
         Member findMember = memberService.findOne(saveId).get();
-        Assertions.assertThat(member.getName()).isEqualTo(findMember.getName());
+        assertThat(member.getName()).isEqualTo(findMember.getName());
     }
 
    @Test
@@ -43,7 +53,7 @@ class MemberServiceTest {
 
         // when
         memberService.join(member1);
-        IllegalStrateException e= assertThrows(IllegalStrateException.class, () -> memberService.join(member2));
+        IllegalStateException e= assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
         /*
