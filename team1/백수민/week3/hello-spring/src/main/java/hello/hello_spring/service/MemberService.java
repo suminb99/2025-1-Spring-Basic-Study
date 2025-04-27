@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -18,7 +18,6 @@ public class MemberService {
     // Because, MemberService의 memberRepository 객체 != MemberServiceTest의 memberRepository 객체
     // And, 굳이 2개의 객체 필요없음
     // DI: Dependency Injection
-    @Autowired // MemberRepository가 필요하구나 해석한다
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
